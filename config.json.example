@@ -1,0 +1,7 @@
+{
+    "DEFAULT": {
+        "SECRET_KEY": "django-secret-key-goes-here",
+        "DATABASE": "name-of-sqlite3-file-goes-here"
+    }
+
+}

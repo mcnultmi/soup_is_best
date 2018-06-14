@@ -1,0 +1,12 @@
+# Database file
+db.sqlite3
+
+# Local settings (include config.json.example file as a skeleton)
+config.json
+
+# Python byte-code/optimisations
+*.py[cod]
+__pycache__/
+
+# Vim temporary files
+*~
