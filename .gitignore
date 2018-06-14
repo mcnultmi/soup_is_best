@@ -8,5 +8,8 @@ config.json
 *.py[cod]
 __pycache__/
 
+# Django migration files
+migrations/
+
 # Vim temporary files
 *~
