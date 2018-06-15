@@ -1,13 +1,40 @@
 from django.db import models
+import os
+import json
+
+config_file = os.path.join(os.path.dirname(__file__), os.pardir, "config.json")
+with open(config_file, 'r') as f:
+    config = json.load(f)
 
 # Create your models here.
 
-class Quiz(models.Model):
+class BaseClass(models.Model):
+    """ Abstract base model """
+    create_ts = models.DateTimeField(
+        auto_now_add=True
+    )
+    modify_ts = models.DateTimeField(
+        auto_now=True
+    )
+    create_by = models.CharField(
+        max_length=100,
+        null=False,
+        default=config['DEFAULT']['ADMIN_USERNAME']
+    )
+    modify_by = models.CharField(
+        max_length=100
+    )
+
+class Quiz(BaseClass):
     """ Represents the general structure of a quiz """
 
     quiz_name = models.CharField(
         max_length=250,
         help_text="Name that can be used to identify a quiz"
+        )
+    maximum_score = models.IntegerField(
+        null=True,
+        help_text="Highest score possible"
         )
     overall_record_score = models.IntegerField(
         null=True,
@@ -25,7 +52,7 @@ class Quiz(models.Model):
         verbose_name_plural = "quizzes"
 
 
-class QuizInstance(models.Model):
+class QuizInstance(BaseClass):
     """ Represents one occurrence of a particular quiz """
 
     quiz_name = models.ForeignKey(
@@ -52,7 +79,7 @@ class QuizInstance(models.Model):
         )
 
 
-class RoundCategory(models.Model):
+class RoundCategory(BaseClass):
     """ Represents the category of a particular QuizRound """
 
     category = models.CharField(
@@ -62,7 +89,7 @@ class RoundCategory(models.Model):
     class Meta:
         verbose_name_plural = "round categories"
 
-class QuizRound(models.Model):
+class QuizRound(BaseClass):
     """ Represents a single round in the quiz """
 
     quiz_instance = models.ForeignKey(

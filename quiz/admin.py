@@ -9,11 +9,19 @@ class QuizAdmin(admin.ModelAdmin):
         (None, {'fields':
                 ['quiz_name']}),
         ('Scoring Information', {'fields': [
-         'number_of_rounds', 'personal_record_score', 'overall_record_score']})
+         'number_of_rounds', 'maximum_score', 'personal_record_score', 'overall_record_score']})
     ]
 
     list_display = (
-        'quiz_name', 'number_of_rounds', 'overall_record_score', 'personal_record_score'
+        'quiz_name',
+        'number_of_rounds',
+        'maximum_score',
+        'overall_record_score',
+        'personal_record_score',
+        'create_ts',
+        'create_by',
+        'modify_ts',
+        'modify_by'
     )
 
     search_fields = ['quiz_name']
@@ -28,7 +36,14 @@ class QuizInstanceAdmin(admin.ModelAdmin):
     ]
 
     list_display = (
-        'quiz_name', 'quiz_date', 'team_size', 'top_score'
+        'quiz_name',
+        'quiz_date',
+        'team_size',
+        'top_score',
+        'create_ts',
+        'create_by',
+        'modify_ts',
+        'modify_by'
     )
 
     list_filter = ['quiz_date']
@@ -49,7 +64,15 @@ class QuizRoundAdmin(admin.ModelAdmin):
     ]
 
     list_display = (
-        'quiz_instance', 'round_number', 'category', 'score', 'doubler'
+        'quiz_instance',
+        'round_number',
+        'category',
+        'score',
+        'doubler',
+        'create_ts',
+        'create_by',
+        'modify_ts',
+        'modify_by'
     )
 
     search_fields = ['category']

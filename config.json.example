@@ -1,7 +1,10 @@
 {
     "DEFAULT": {
         "SECRET_KEY": "django-secret-key-goes-here",
-        "DATABASE": "name-of-sqlite3-file-goes-here"
+        "DATABASE": "name-of-sqlite3-file-goes-here",
+        "TIMEZONE": "UTC",
+        "DEBUG": "True",
+        "ADMIN_USERNAME": "default_admin"
     }
 
 }
