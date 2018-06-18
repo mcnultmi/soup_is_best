@@ -9,12 +9,12 @@ class QuizAdmin(admin.ModelAdmin):
         (None, {'fields':
                 ['quiz_name']}),
         ('Scoring Information', {'fields': [
-         'number_of_rounds', 'maximum_score', 'personal_record_score', 'overall_record_score']})
+         'rounds', 'maximum_score', 'personal_record_score', 'overall_record_score']})
     ]
 
     list_display = (
         'quiz_name',
-        'number_of_rounds',
+        'rounds',
         'maximum_score',
         'overall_record_score',
         'personal_record_score',
@@ -30,16 +30,16 @@ class QuizAdmin(admin.ModelAdmin):
 class QuizInstanceAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields':
-                ['quiz_name', 'quiz_date']}),
+                ['quiz_type', 'quiz_date']}),
         ('Additional Information', {'fields': [
-         'team_size', 'top_score', 'number_of_teams', 'teams_above_ninety', 'bonus_score', 'pints_consumed']})
+         'team_size', 'winning_score', 'number_of_teams', 'teams_above_ninety', 'bonus_score', 'pints_consumed']})
     ]
 
     list_display = (
-        'quiz_name',
+        'quiz_type',
         'quiz_date',
         'team_size',
-        'top_score',
+        'winning_score',
         'create_ts',
         'create_by',
         'modify_ts',

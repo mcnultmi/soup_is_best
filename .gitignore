@@ -13,3 +13,6 @@ migrations/
 
 # Vim temporary files
 *~
+
+#Testing
+.coverage
