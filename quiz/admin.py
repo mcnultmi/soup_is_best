@@ -1,10 +1,18 @@
 from django.contrib import admin
-from .models import Quiz, QuizInstance, RoundCategory, QuizRound
+from .models import QuizBase, QuizInstance, RoundCategory, QuizRound
 
 # Register your models here.
 
 
-class QuizAdmin(admin.ModelAdmin):
+class QuizRoundInline(admin.TabularInline):
+    model = QuizRound
+    fk_name = 'quiz_instance'
+    max_num = 8
+    extra = 8
+    fields = ['round_number', 'category', 'score', 'doubler']
+
+
+class QuizBaseAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields':
                 ['quiz_name']}),
@@ -30,13 +38,19 @@ class QuizAdmin(admin.ModelAdmin):
 class QuizInstanceAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields':
-                ['quiz_type', 'quiz_date']}),
+                ['quiz', 'quiz_date']}),
         ('Additional Information', {'fields': [
-         'team_size', 'winning_score', 'number_of_teams', 'teams_above_ninety', 'bonus_score', 'pints_consumed']})
+         ('team_size', 'number_of_teams', 'teams_above_ninety'),
+         ('winning_score', 'bonus_score')
+         ]})
+    ]
+
+    inlines = [
+        QuizRoundInline
     ]
 
     list_display = (
-        'quiz_type',
+        'quiz',
         'quiz_date',
         'team_size',
         'winning_score',
@@ -47,7 +61,7 @@ class QuizInstanceAdmin(admin.ModelAdmin):
     )
 
     list_filter = ['quiz_date']
-    search_fields = ['quiz_name', 'quiz_date']
+    search_fields = ['quiz', 'quiz_date']
 
 
 class RoundCategoryAdmin(admin.ModelAdmin):
@@ -78,7 +92,7 @@ class QuizRoundAdmin(admin.ModelAdmin):
     search_fields = ['category']
 
 
-admin.site.register(Quiz, QuizAdmin)
+admin.site.register(QuizBase, QuizBaseAdmin)
 admin.site.register(QuizInstance, QuizInstanceAdmin)
 admin.site.register(RoundCategory, RoundCategoryAdmin)
 admin.site.register(QuizRound, QuizRoundAdmin)
